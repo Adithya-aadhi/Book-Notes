@@ -55,6 +55,17 @@ app.get('/list', async(req,res)=>{
     }
 })
 
+app.get('/delete/:id',async(req,res)=>{
+    const {id}=req.params
+    try {
+        await pool.query('delete from book_data where id=$1;',[id]);
+        res.redirect('/list')
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`);
 })
