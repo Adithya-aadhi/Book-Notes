@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My List</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:15px 30px;
+            background:white;
+            border-radius:10px;
+            margin-bottom:25px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        ul{
+            display:flex;
+            gap:20px;
+            list-style:none;
+        }
+
+        li{
+            background:black;
+            padding:8px 16px;
+            border-radius:8px;
+        }
+
+        a{
+            text-decoration:none;
+            color:white;
+        }
+
+        .list-container{
+            display:flex;
+            flex-wrap:wrap;
+            gap:20px;
+            justify-content:center;
+            padding:20px;
+        }
+
+        /* UPDATED — grey (#535353) → black (#000) */
+        .book-item{
+            width:200px;
+            background:black;
+            padding:15px;
+            border-radius:10px;
+            color:white;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:12px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.4);
+        }
+
+        img{
+            width:180px;
+            height:250px;
+            object-fit:cover;
+            border-radius:6px;
+            border:2px solid white;
+        }
+
+        .book-info{
+            text-align:c
+        }
+        span{
+            color: rgb(226, 43, 43);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Read Log</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/add">Add +</a></li>
+            <li><a href="/list">My List</a></li>
+        </ul>
+    </header>
+
+    <div class="list-container">
+        <% for (let i = 0; i < data.length; i++) { %>
+            <div class="book-item">
+                <img src="<%= data[i].image %>" alt="">
+                <div class="book-info">
+                    <h3><span> Title : </span><%= data[i].name %></h3>
+                    <p><span> Description : </span><%= data[i].descr %></p>
+                    <p><span> Date : </span><%= data[i].date %></p>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+</body>
+</html>

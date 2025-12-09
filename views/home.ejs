@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Log</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:15px 30px;
+            background:white;
+            border-radius:10px;
+            margin-bottom:40px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        ul{
+            display:flex;
+            gap:20px;
+            list-style:none;
+        }
+
+        li{
+            background:black;
+            padding:8px 16px;
+            border-radius:8px;
+        }
+
+        a{
+            text-decoration:none;
+            color:white;
+        }
+
+        .home-container{
+            text-align:center;
+            padding:40px 20px;
+        }
+
+        .home-container h1{
+            margin-bottom:20px;
+            font-size:2.2rem;
+        }
+
+        .home-container p{
+            font-size:1.1rem;
+            margin-bottom:10px;
+            color:#444;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Read Log</h1>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/add">Add +</a></li>
+            <li><a href="/list">My List</a></li>
+        </ul>
+    </header>
+
+    <div class="home-container">
+        <h1>Welcome to Read Log 📚</h1>
+        <p>Your personal space to track books you’ve read.</p>
+        <p>Add books, save dates, attach covers automatically, and view your reading journey.</p>
+        <p>Click “Add +” to start logging your next book.</p>
+    </div>
+</body>
+</html>
