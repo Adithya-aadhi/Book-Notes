@@ -22,9 +22,15 @@ app.post('/submit',async (req,res)=>{
     const {name, date,descr,rating}=req.body;
     try {
         const resp=await axios.get(`https://openlibrary.org/search.json?title=${encodeURIComponent(name)}`)
-        const book_id=resp.data.docs[0].cover_i;
+        const book = resp.data.docs[0];
+
+        const book_id=book.cover_i;
         const coverUrl = `https://covers.openlibrary.org/b/id/${book_id}-L.jpg`;
-        await pool.query("insert into book_data(date,name,image,descr,rating) values($1,$2,$3,$4,$5);",[date,name,coverUrl,descr,rating]);
+
+        
+        const author = book.author_name ? book.author_name[0] : "Unknown";
+
+        await pool.query("insert into book_data(date,name,image,descr,rating,author) values($1,$2,$3,$4,$5,$6);",[date,name,coverUrl,descr,rating,author]);
 
     } catch (error) {
         console.log(error);
@@ -32,15 +38,6 @@ app.post('/submit',async (req,res)=>{
     res.redirect('/add');
 })
 
-app.get('/cover',async (req,res)=>{
-
-    let name="the lost world"
-    const resp=await axios.get(`https://openlibrary.org/search.json?title=${encodeURIComponent(name)}`)
-    //res.send(resp.data.docs[0].cover_i);
-    const book=resp.data.docs[0];
-    const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`;
-    res.render("list.ejs",{coverUrl});
-})
 
   
 app.get('/list', async(req,res)=>{
@@ -79,3 +76,15 @@ app.get('/delete/:id',async(req,res)=>{
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`);
 })
+
+
+
+// app.get('/cover',async (req,res)=>{
+
+//     let name="the lost world"
+//     const resp=await axios.get(`https://openlibrary.org/search.json?title=${encodeURIComponent(name)}`)
+//     //res.send(resp.data.docs[0].cover_i);
+//     const book=resp.data.docs[0];
+//     const coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`;
+//     res.render("list.ejs",{coverUrl});
+// })
