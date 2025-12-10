@@ -19,12 +19,12 @@ app.get("/add", (req, res) => {
 });
 
 app.post('/submit',async (req,res)=>{
-    const {name, date,descr}=req.body;
+    const {name, date,descr,rating}=req.body;
     try {
         const resp=await axios.get(`https://openlibrary.org/search.json?title=${encodeURIComponent(name)}`)
         const book_id=resp.data.docs[0].cover_i;
         const coverUrl = `https://covers.openlibrary.org/b/id/${book_id}-L.jpg`;
-        await pool.query("insert into book_data(date,name,image,descr) values($1,$2,$3,$4);",[date,name,coverUrl,descr]);
+        await pool.query("insert into book_data(date,name,image,descr,rating) values($1,$2,$3,$4,$5);",[date,name,coverUrl,descr,rating]);
 
     } catch (error) {
         console.log(error);
@@ -44,16 +44,26 @@ app.get('/cover',async (req,res)=>{
 
   
 app.get('/list', async(req,res)=>{
+    let sort=req.query.sort;
+    let query='select * from book_data';
+
+    if(sort==="recency"){
+        query='select *from book_data order by date desc;';
+    }
+    else if(sort==="rating"){
+        query='select * from book_data order by rating desc;';
+    }
     try {
-        const list=await pool.query("Select * from book_data;");
+        const list=await pool.query(query);
         const data=list.rows;
-        res.render("list.ejs",{data})
+        res.render("list.ejs",{data,sort})
     }
 
     catch (error) {
         console.log(error);
     }
 })
+
 
 app.get('/delete/:id',async(req,res)=>{
     const {id}=req.params

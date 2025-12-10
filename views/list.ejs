@@ -82,6 +82,13 @@
             background-color:blueviolet;
             border-radius: 10px;
         }
+        select{
+            padding:10px;
+            border-radius: 8px;
+            margin-left: 85%;
+            border: none;
+            background-color: blueviolet;
+        }
     </style>
 </head>
 
@@ -95,8 +102,17 @@
             <li><a href="/list">My List</a></li>
         </ul>
     </header>
+    
+    <form action="/list" method="get">
+        <select name="sort" onchange="this.form.submit()">
+            <option value="recency" <%= sort === "recency" ? "selected" : "" %>>Recency</option>
+            <option value="rating"  <%= sort === "rating" ? "selected" : "" %>>Rating</option>
+        </select>
+    </form>
+
 
     <div class="list-container">
+        
         <% for (let i = 0; i < data.length; i++) { %>
             <div class="book-item">
                 <img src="<%= data[i].image %>" alt="">
@@ -104,6 +120,7 @@
                     <h3><span> Title : </span><%= data[i].name %></h3>
                     <p><span> Description : </span><%= data[i].descr %></p>
                     <p><span> Date : </span><%= data[i].date %></p>
+                    <p><span> Rating : </span><%= data[i].rating %></p>
                 </div>
                 <a href="/delete/<%= data[i].id %>" class="delete-btn">Delete</a>
             </div>
